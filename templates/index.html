@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>С Днём программиста!</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    min-height: 100vh;
+    background: #0a0e14;
+    font-family: 'Segoe UI', Consolas, monospace;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  #matrix {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0; opacity: 0.25;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background: radial-gradient(circle at 50% 40%, rgba(0,255,136,0.15), transparent 60%);
+    z-index: 1; pointer-events: none;
+  }
+
+  .card {
+    position: relative; z-index: 2;
+    max-width: 640px; width: 92%;
+    padding: 46px 36px;
+    background: rgba(15, 22, 30, 0.85);
+    border: 2px solid #00ff88;
+    border-radius: 20px;
+    box-shadow: 0 0 40px rgba(0,255,136,0.35), inset 0 0 40px rgba(0,255,136,0.05);
+    text-align: center;
+    backdrop-filter: blur(6px);
+    animation: floatIn 1s ease-out, glow 3s ease-in-out infinite alternate;
+  }
+
+  @keyframes floatIn {
+    from { opacity: 0; transform: translateY(40px) scale(0.95); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  @keyframes glow {
+    from { box-shadow: 0 0 30px rgba(0,255,136,0.25), inset 0 0 30px rgba(0,255,136,0.05); }
+    to   { box-shadow: 0 0 55px rgba(0,255,136,0.55), inset 0 0 50px rgba(0,255,136,0.10); }
+  }
+
+  h1 {
+    font-size: clamp(20px, 4.5vw, 30px);
+    color: #00ff88; margin-bottom: 12px;
+    text-shadow: 0 0 15px rgba(0,255,136,0.7);
+    letter-spacing: 1px;
+  }
+
+  .status {
+    display: inline-block; padding: 6px 16px;
+    border-radius: 20px; font-size: 13px;
+    margin-bottom: 16px; letter-spacing: 1px;
+  }
+
+  .status.today {
+    background: rgba(0,255,136,0.15); color: #00ff88;
+    border: 1px solid #00ff88;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  .status.soon {
+    background: rgba(255,184,108,0.12); color: #ffb86c;
+    border: 1px solid #ffb86c;
+  }
+
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(0,255,136,0.5); }
+    50%      { box-shadow: 0 0 0 12px rgba(0,255,136,0); }
+  }
+
+  .binary {
+    font-family: Consolas, monospace; font-size: 13px;
+    color: #00aa66; letter-spacing: 3px;
+    margin-bottom: 20px; opacity: 0.9;
+  }
+
+  .snake {
+    font-size: 68px; display: inline-block;
+    animation: wiggle 2.2s ease-in-out infinite;
+    filter: drop-shadow(0 0 18px rgba(0,255,136,0.6));
+    margin-bottom: 6px;
+  }
+
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(-8deg) translateY(0); }
+    50%      { transform: rotate(8deg) translateY(-8px); }
+  }
+
+  .wishes {
+    margin: 22px 0; font-size: clamp(13px, 2.6vw, 16px);
+    line-height: 1.9; color: #d6ffe8;
+  }
+
+  .wishes p { opacity: 0; animation: appear 0.6s ease forwards; }
+  .wishes p:nth-child(1) { animation-delay: 0.6s; }
+  .wishes p:nth-child(2) { animation-delay: 1.0s; }
+  .wishes p:nth-child(3) { animation-delay: 1.4s; }
+  .wishes p:nth-child(4) { animation-delay: 1.8s; }
+
+  @keyframes appear {
+    from { opacity: 0; transform: translateX(-14px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  .code {
+    font-family: Consolas, monospace;
+    background: rgba(0,255,136,0.08);
+    border-left: 3px solid #00ff88;
+    border-radius: 6px; padding: 14px 18px;
+    text-align: left; font-size: 13px;
+    color: #7dffbf; margin: 20px 0;
+    white-space: pre-wrap; overflow-x: auto;
+  }
+
+  .footer {
+    margin-top: 24px; font-size: 12px;
+    color: #4a8a6a; letter-spacing: 1px;
+  }
+
+  .footer span { color: #00ff88; }
+
+  button {
+    margin-top: 16px; padding: 10px 26px;
+    background: transparent; border: 2px solid #00ff88;
+    color: #00ff88; border-radius: 30px;
+    font-size: 14px; font-family: inherit;
+    cursor: pointer; transition: all 0.3s;
+    letter-spacing: 1px;
+  }
+
+  button:hover {
+    background: #00ff88; color: #0a0e14;
+    box-shadow: 0 0 25px rgba(0,255,136,0.8);
+    transform: translateY(-2px);
+  }
+
+  .confetti {
+    position: fixed; top: -20px; font-size: 20px;
+    z-index: 3; pointer-events: none;
+    animation: fall linear forwards;
+  }
+
+  @keyframes fall {
+    to { transform: translateY(105vh) rotate(720deg); opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="matrix"></canvas>
+
+<div class="card">
+  <h1>🎉 С ДНЁМ ПРОГРАММИСТА! 🎉</h1>
+
+  {% if is_today %}
+    <div class="status today">🔥 Сегодня — твой день! 🔥</div>
+  {% else %}
+    <div class="status soon">⏳ До праздника осталось дней: {{ days_left }}</div>
+  {% endif %}
+
+  <div class="binary">01001000 01100001 01110000 01110000 01111001</div>
+
+  <div class="snake">🐍</div>
+
+  <div class="wishes">
+    {% for wish in wishes %}
+      <p>{{ wish }}</p>
+    {% endfor %}
+  </div>
+
+  <div class="code">{{ code }}</div>
+
+  <p style="font-size:14px;color:#a8ffd6;">
+    256-й день года — {{ today }} 💻
+  </p>
+
+  <button onclick="celebrate()">🎊 Нажми меня!</button>
+
+  <div class="footer">
+    Сгенерировано с <span>❤</span> на Python + Flask | {{ year }}
+  </div>
+</div>
+
+<script>
+const canvas = document.getElementById('matrix');
+const ctx = canvas.getContext('2d');
+let w, h, columns, drops;
+const chars = '01{}[]()<>=+-*/;:#$&|!?АБВГДЕЖЗИКЛМНОПРСТУФ'.split('');
+
+function initMatrix() {
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = window.innerHeight;
+  const fontSize = 16;
+  columns = Math.floor(w / fontSize);
+  drops = Array(columns).fill(1).map(() => Math.random() * h / fontSize);
+  ctx.font = fontSize + 'px Consolas, monospace';
+  ctx.fillStyle = '#00ff88';
+}
+
+function drawMatrix() {
+  ctx.fillStyle = 'rgba(10, 14, 20, 0.08)';
+  ctx.fillRect(0, 0, w, h);
+  ctx.fillStyle = '#00ff88';
+  ctx.font = '16px Consolas, monospace';
+  for (let i = 0; i < drops.length; i++) {
+    const char = chars[Math.floor(Math.random() * chars.length)];
+    ctx.fillText(char, i * 16, drops[i] * 16);
+    if (drops[i] * 16 > h && Math.random() > 0.975) drops[i] = 0;
+    drops[i]++;
+  }
+}
+
+initMatrix();
+setInterval(drawMatrix, 55);
+window.addEventListener('resize', initMatrix);
+
+function celebrate() {
+  const emojis = ['🎉', '🎊', '💚', '🐍', '💻', '☕', '🚀', '⚡', '✨', '🎈'];
+  for (let i = 0; i < 40; i++) {
+    setTimeout(() => {
+      const el = document.createElement('div');
+      el.className = 'confetti';
+      el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      el.style.left = Math.random() * 100 + 'vw';
+      el.style.fontSize = (16 + Math.random() * 24) + 'px';
+      el.style.animationDuration = (2 + Math.random() * 2) + 's';
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 4500);
+    }, i * 50);
+  }
+}
+
+setTimeout(celebrate, 3000);
+</script>
+
+</body>
+</html>
