@@ -1,0 +1,19 @@
+---
+meta:
+  environment: python
+  toolchain:
+    name: pip
+    version: 3.11
+
+build:
+  requirementsPath: requirements.txt
+  useCache: true
+
+run:
+  scriptName: null
+  command: gunicorn --bind 0.0.0.0:5000 app:app
+  persistenceMount: /data
+  containerPort: 5000
+  russianTrustedCa: false
+  singleton: true
+  zeroDowntime: false
