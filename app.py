@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template
+from flask import Flask, render_template, send_from_directory
 import datetime
 import random
 
@@ -48,6 +48,12 @@ def index():
         code=random.choice(CODE_SNIPPETS),
         year=today.year,
     )
+
+@app.route("/yandex_4ffe4630252809fc.html")
+def yandex_verify():
+    return send_from_directory("static", "yandex_4ffe4630252809fc.html")
+
+
 
 
 if __name__ == "__main__":
